@@ -4,6 +4,8 @@ MinimaxでWordleの選択肢を減らす
 ↓ポケモンWordleなんかもいける
 ![無題2](https://user-images.githubusercontent.com/39112867/155692445-dea7fab4-2503-47ac-8be6-3c54fdd6b1cd.png)
 
+<span style="color: red;">Macだとボタンの背景色を変更できないらしいので実質使えません</span>😭（ボタンを使うなという話ではある）
+
 ## Usage
 
 基本的には雰囲気で頑張る。
