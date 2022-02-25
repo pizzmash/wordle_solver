@@ -4,12 +4,14 @@ from tkinter import ttk
 
 
 class SearchBox(tkinter.Frame):
-    def __init__(self, master, searcher):
+    def __init__(self, master, searcher=None, is_available=True):
+        self.is_available = is_available
+
         super().__init__(master)
 
         self.bt = tkinter.Button(self, text="Search")
         self.bt.grid(row=0, column=0, rowspan=2, padx=5)
-        self.bt.bind("<Button-1>", self.search)
+        self.bt.bind("<Button-1>", lambda e: self.is_available and self.search(e))
 
         self.pb = ttk.Progressbar(self, length=200, mode="determinate")
         self.pb.grid(row=0, column=1, rowspan=2, padx=5)
@@ -35,8 +37,11 @@ class SearchBox(tkinter.Frame):
         self.searcher = searcher
         self.lock = threading.Lock()
 
+    def set_searcher(self, searcher):
+        self.searcher = searcher
+
     def search(self, event):
-        if self.lock.locked():
+        if self.searcher is None or self.lock.locked():
             return
         else:
             def f():
@@ -59,3 +64,9 @@ class SearchBox(tkinter.Frame):
             yield elem
             self.pb.configure(value=i)
             self.sv0.set("{}".format(i+1).rjust(3) + " / " + "{}".format(len(iter)).rjust(3))
+    
+    def enable(self):
+        self.is_available = True
+
+    def disable(self):
+        self.is_available = False

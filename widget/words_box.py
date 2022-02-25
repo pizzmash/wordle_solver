@@ -2,7 +2,7 @@ import tkinter
 
 
 class WordsBox(tkinter.Frame):
-    def __init__(self, master, stream, checker=None):
+    def __init__(self, master, stream, checker=None, is_available=True):
         super().__init__(master)
 
         l = tkinter.Label(self, text="候補数：")
@@ -16,12 +16,18 @@ class WordsBox(tkinter.Frame):
         self.slb = ScrollListBox(self, stream)
         self.slb.grid(row=1, column=0, columnspan=2, padx=5, pady=5)
 
-        self.pf = WordForm(self, stream, checker=checker)
-        self.pf.grid(row=2, column=0, columnspan=2, padx=5)
+        self.wf = WordForm(self, stream, checker=checker, is_available=is_available)
+        self.wf.grid(row=2, column=0, columnspan=2, padx=5)
 
     def set(self, words):
         self.sv.set(str(len(words)))
         self.slb.set(words)
+    
+    def enable(self):
+        self.wf.enable()
+    
+    def disable(self):
+        self.wf.disable()
 
 
 class ScrollListBox(tkinter.Frame):
@@ -56,7 +62,9 @@ class ScrollListBox(tkinter.Frame):
 
 
 class WordForm(tkinter.Frame):
-    def __init__(self, master, stream, checker=None):
+    def __init__(self, master, stream, checker=None, is_available=True):
+        self.is_available = is_available
+
         super().__init__(master)
 
         self.et = tkinter.Entry(self, width=15)
@@ -65,7 +73,7 @@ class WordForm(tkinter.Frame):
         self.bt = tkinter.Button(self, text="Enter")
         self.bt.grid(row=0, column=1, padx=5)
 
-        self.bt.bind("<Button-1>", self.write_to_stream)
+        self.bt.bind("<Button-1>", lambda e: self.is_available and self.write_to_stream(e))
 
         self.stream = stream
         self.checker = checker
@@ -80,3 +88,9 @@ class WordForm(tkinter.Frame):
             self.et.configure(bg="#FFFFFF")
         else:
             self.et.configure(bg="#FF8080")
+
+    def enable(self):
+        self.is_available = True
+    
+    def disable(self):
+        self.is_available = False
