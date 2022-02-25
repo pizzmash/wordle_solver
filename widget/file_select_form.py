@@ -11,7 +11,7 @@ class FileSelectForm(tkinter.Frame):
         l = tkinter.Label(self, text="Words File：")
         l.grid(row=0, column=0, padx=5, sticky=tkinter.E)
 
-        self.et = tkinter.Entry(self, width=82, state="readonly")
+        self.et = tkinter.Entry(self, width=70, state="readonly")
         self.et.grid(row=0, column=1, padx=5)
 
         self.bt = tkinter.Button(self, text="Browse")

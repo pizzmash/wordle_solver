@@ -13,7 +13,7 @@ class SearchBox(tkinter.Frame):
         self.bt.grid(row=0, column=0, rowspan=2, padx=5)
         self.bt.bind("<Button-1>", lambda e: self.is_available and self.search(e))
 
-        self.pb = ttk.Progressbar(self, length=200, mode="determinate")
+        self.pb = ttk.Progressbar(self, length=130, mode="determinate")
         self.pb.grid(row=0, column=1, rowspan=2, padx=5)
 
         self.sv0 = tkinter.StringVar()
