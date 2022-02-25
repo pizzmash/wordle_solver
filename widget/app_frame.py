@@ -1,4 +1,3 @@
-from msilib.schema import File
 import tkinter
 
 from widget.file_select_form import FileSelectForm
