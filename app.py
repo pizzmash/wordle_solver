@@ -20,7 +20,6 @@ class App:
         self.frame.mainloop()
     
     def setup(self):
-        self.frame.reset()
         words_file_path = self.frame.fsf.et.get()
         with open(words_file_path, encoding="utf-8") as f:
             words = f.read().split("\n")
